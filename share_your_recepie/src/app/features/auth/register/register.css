@@ -1,0 +1,116 @@
+/* Background and container */
+.register-container {
+  min-height: 100vh;
+  background-color: #ede8d0; /* тъмно син */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* White box */
+.register-box {
+  background: white;
+  padding: 2.5rem 3rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.2);
+  text-align: center;
+}
+
+/* Заглавие */
+.register-box h2 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+/* Етикети */
+.register-box label {
+  display: block;
+  text-align: left;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+/* Полета за въвеждане */
+.register-box input[type="text"],
+.register-box input[type="email"],
+.register-box input[type="password"] {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.register-box input[type="text"]:focus,
+.register-box input[type="email"]:focus,
+.register-box input[type="password"]:focus {
+  border-color: #ede8d0;
+  outline: none;
+}
+
+/* Terms checkbox */
+.terms {
+  text-align: left;
+  margin-bottom: 1.4rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.terms input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Линк в terms */
+.terms a {
+  color: #ede8d0;
+  text-decoration: none;
+}
+
+.terms a:hover {
+  text-decoration: underline;
+}
+
+/* Бутон */
+.register-box button {
+  background-color: #c8ad7f;
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 0.8rem 0;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-box button:hover {
+  background-color: #ede8d0;
+}
+
+/* Линк за вече регистрирани */
+.already-member {
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.already-member a {
+  color: #dbd09b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.already-member a:hover {
+  text-decoration: underline;
+}
