@@ -6,6 +6,6 @@ import recepieController from "./controllers/recepieController.js";
 const routes = Router();
 
 routes.use('/users', userController);
-routes.use('/data/catalog', recepieController);
+routes.use('/data/recepies', recepieController);
 
 export default routes;
