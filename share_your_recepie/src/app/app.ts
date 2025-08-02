@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header, Footer } from "./features/shared";
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
@@ -10,4 +12,8 @@ import { Header, Footer } from "./features/shared";
 })
 export class App {
   protected title = 'share_your_recepie';
+
+
 }
+
+
