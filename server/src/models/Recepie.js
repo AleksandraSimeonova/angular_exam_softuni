@@ -3,28 +3,28 @@ import { model, Schema, Types } from "mongoose";
 const RecepieSchema = new Schema({
     _id: {
         type: String,
-        minLength: 4,
+        required: true,
     },
     title: {
         type: String,
-        minLength: 4,
+        required: true,
     },
     ingredients: {
         type: String,
-        minLength: 4,
+        required: true,
     },
     instructions: {
-        type: String
+        type: String,
+        required: true,
     },
     likes: {
         type: Number,
         min: 0
     },
     imageUrl: {
-        type: String,
-        required: true,
+        type: String
     },
-    _authorId: {
+    _ownerId: {
         type: Types.ObjectId,
         ref: 'User',
     },
