@@ -7,13 +7,14 @@ import { Observable } from "rxjs";
 
 export class RecipeService {
 
-     private apiUrl = 'http://localhost:3000/recepies'; //check url
+     private apiUrl = 'http://localhost:3030/data/recepies'; //check url
 
     constructor(private httpClient: HttpClient) {}
 
     getAll(): Observable<Recipe[]> {
         return this.httpClient.get<Recipe[]>(this.apiUrl);
     }
+}
 
 ///    getById(id: string): Observable<Recipe> {
 ///        return this.httpClient.get<Recipe>(`${this.apiUrl}/recipes/${id}`);
@@ -41,4 +42,4 @@ export class RecipeService {
  ///      const token = localStorage.getItem('token');
  ///      return new HttpHeaders().set('Authorization', `Bearer ${token}`);
  ///  }
-}
+
