@@ -4,24 +4,24 @@ import recepieService from "../service/recepieService.js";
 
 const recepieController = Router();
 
-function buildFilter(query) {
-    const filterResult = Object.keys(query).reduce((filter, filterParam) => {
-        const filterParamValue = query[filterParam].replaceAll('"', '');
-
-        const searchParams = new URLSearchParams(filterParamValue);
-        
-        return { ...filter, ...Object.fromEntries(searchParams.entries()) };
-    }, {})
-
-    return filterResult
-};
+  ///   function buildFilter(query) {
+  ///       const filterResult = Object.keys(query).reduce((filter, filterParam) => {
+  ///           const filterParamValue = query[filterParam].replaceAll('"', '');
+  ///   
+  ///           const searchParams = new URLSearchParams(filterParamValue);
+  ///           
+  ///           return { ...filter, ...Object.fromEntries(searchParams.entries()) };
+  ///       }, {})
+  ///   
+  ///       return filterResult
+  ///   };
 
 // Get all
 recepieController.get('/', async (req, res) => {
     // buildFilter({ where: '_ownerId="67ace2aed1eaa48b16b4b2eb"&email="ivo@abv.bg"', sortBy: 'createdAt="desc"' });
-    const filter = buildFilter(req.query);
+    ///const filter = buildFilter(req.query);
     
-    const recepies = await recepieService.getAll(filter);
+    const recepies = await recepieService.getAll();
 
     res.json(recepies);
 });
