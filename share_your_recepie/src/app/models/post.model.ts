@@ -6,7 +6,7 @@ export interface Recipe {
   ingredients: string;
   instructions: string;
   imageUrl?: string;
-  authorId: string;
+  _ownerId: string;
   likes: number;
   createdAt: Date;
 }
