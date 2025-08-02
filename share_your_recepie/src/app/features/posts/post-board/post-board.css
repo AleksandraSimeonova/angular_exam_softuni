@@ -1,0 +1,30 @@
+.container {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #d3c5c5;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+main {
+  padding: 1rem 0;
+}
+
+.theme-title {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+
+.theme-title > div {
+
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+}

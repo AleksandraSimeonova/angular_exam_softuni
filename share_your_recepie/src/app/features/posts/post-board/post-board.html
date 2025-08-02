@@ -1,1 +1,10 @@
-<p>post-board works!</p>
+<div class="container"> 
+  <main>
+    <div class="theme-title">
+      <div *ngFor="let recipe of recepies$ | async; trackBy: trackById">
+        <app-post-item [recipe]="recipe"></app-post-item>
+      </div>
+    </div>
+  </main>
+</div>
+<p> Work</p>
