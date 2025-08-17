@@ -1,26 +1,54 @@
 <div class="register-container">
   <div class="register-box">
     <h2>Sign up</h2>
-    <form>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" placeholder="Your Name" required />
+      <input [class.input-error]="isUserNameValid" type="text" name="name" id="name" placeholder="Johny"
+        formControlName="name" />
+
+      @if (isEmailValid) {
+      <p class="error">
+        {{ emailErrorMessage }}
+      </p>
+      }
 
       <label for="email">Your Email</label>
-      <input type="email" id="email" name="email" placeholder="Your Email" required />
+      <input [class.input-error]="isEmailValid" type="email" name="email" id="email" placeholder="john.doe@gmail.com"
+        formControlName="email" />
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Password" required />
+      @if (isEmailValid) {
+      <p class="error">
+        {{ emailErrorMessage }}
+      </p>
+      }
+      <div formGroupName="passwords">
+        <label for="password">Password</label>
+        <input [class.input-error]="isPasswordsValid" type="password" name="password" id="password" placeholder="******"
+          formControlName="password" /> 
 
-      <label for="password2">Repeat your password</label>
-      <input type="password" id="password2" name="password2" placeholder="Repeat your password" required />
+        @if (isPasswordsValid) {
+        <p class="error">
+          {{ passwordErrorMessage }}
+        </p>
+        }
 
-      <div class="terms">
-        <input type="checkbox" id="terms" name="terms" required />
-        <label for="terms">I agree all statements in <a href="#">Terms of service</a></label>
+        <label for="password2">Repeat your password</label>
+        <input [class.input-error]="isPasswordsValid" type="password" name="rePassword" id="rePassword"
+          placeholder="******" formControlName="rePassword" />
+
+        @if (isPasswordsValid) {
+        <p class="error">
+          {{ rePasswordErrorMessage }}
+        </p>
+        }
       </div>
+      <button type="submit" [disabled]="registerForm.invalid">Create Account</button>
 
-      <button type="submit">Register</button>
     </form>
-    <p class="already-member">I am already member. <a href="#">Login here</a></p>
+    <p class="already-member">I am already member. <a href="/login">Login here</a></p>
   </div>
 </div>
+
+
+
+
