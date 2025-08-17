@@ -34,7 +34,9 @@ export class AuthService {
 
     login(email: string, password: string): Observable<User> {
 
-        return this.httpClient.post<User>(`${this.apiUrl}/login`, { email, password },
+        return this.httpClient.post<User>(`${this.apiUrl}/login`, { email, password }, {
+            withCredentials: true
+        }
 
         ).pipe(
             tap(user => {
@@ -60,6 +62,8 @@ export class AuthService {
             rePassword
 
 
+        }, {
+            withCredentials: true
         }).pipe(
             tap(user => {
                 this._currentUser.set(user);
@@ -85,7 +89,9 @@ export class AuthService {
             likedRecipes: user.likedRecipes
         }
 
-        return this.httpClient.put<User>(`${this.apiUrl}/users/${user._id}`, apiUser,
+        return this.httpClient.put<User>(`${this.apiUrl}/users/${user._id}`, apiUser, {
+            withCredentials: true
+        }
 
         ).pipe(
             tap(user => {

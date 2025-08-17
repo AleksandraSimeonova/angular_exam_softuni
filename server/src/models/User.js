@@ -26,12 +26,12 @@ const userSchema = new Schema({
     },
 
     postedRecipes: [{
-        type: ObjectId, ////Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
         ref: "Recipe"
     }],
 
     likedRecipes: [{
-        type: ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Recipe"
     }]
 

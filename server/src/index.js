@@ -23,7 +23,10 @@ try {
 //     next();
 // });
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:4200', // Angular порт
+  credentials: true 
+}));
 app.use(auth);
 
 app.use(routes);
