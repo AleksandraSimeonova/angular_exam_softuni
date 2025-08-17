@@ -12,7 +12,7 @@ import { map, Observable, tap } from "rxjs";
 
 export class AuthService {
 
-    private apiUrl = 'http://localhost:3000/users'
+    private apiUrl = 'http://localhost:3030/users'
 
     private _isLoggedIn = signal<boolean>(false);
     private _currentUser = signal<User | null>(null);
@@ -22,45 +22,55 @@ export class AuthService {
 
     constructor(private httpClient: HttpClient) {
         const savedUser = localStorage.getItem('currentUser');
+        const token = localStorage.getItem('accessToken');
 
-        if (savedUser) {
+        if (savedUser && token) {
             const user = JSON.parse(savedUser);
             this._currentUser.set(user);
-            this._isLoggedIn.set(true)
+            this._isLoggedIn.set(true);
         }
     }
 
 
     login(email: string, password: string): Observable<User> {
 
-        return this.httpClient.post<User>(`${this.apiUrl}/login`, { email, password }, {
-            withCredentials: true
-        }).pipe(
+        return this.httpClient.post<User>(`${this.apiUrl}/login`, { email, password },
+
+        ).pipe(
             tap(user => {
                 this._currentUser.set(user);
                 this._isLoggedIn.set(true);
-                localStorage.setItem('currentUser', JSON.stringify(user))
-
+                localStorage.setItem('accessToken', user.accessToken);
+                localStorage.setItem('currentUser', JSON.stringify({
+                    _id: user._id,
+                    email: user.email,
+                    postedRecipes: user.postedRecipes || [],
+                    likedRecipes: user.likedRecipes || [],
+                }));
             })
         )
     }
 
-    register(username: string, email: string, phone: string, password: string, rePassword: string): Observable<User> {
+    register(name: string, email: string, password: string, rePassword: string): Observable<User> {
 
         return this.httpClient.post<User>(`${this.apiUrl}/register`, {
-            username,
+            name,
             email,
-            tel: phone,
             password,
             rePassword
-        }, {
-            withCredentials: true
+
+
         }).pipe(
             tap(user => {
                 this._currentUser.set(user);
                 this._isLoggedIn.set(true);
-                localStorage.setItem('currentUser', JSON.stringify(user))
-
+                localStorage.setItem('accessToken', user.accessToken);
+                localStorage.setItem('currentUser', JSON.stringify({
+                    _id: user._id,
+                    email: user.email,
+                    postedRecipes: user.postedRecipes || [],
+                    likedRecipes: user.likedRecipes || [],
+                }));
             })
         )
 
@@ -71,17 +81,23 @@ export class AuthService {
         const apiUser = <User>{
             _id: user._id,
             email: user.email,
-           postedRecipes: user.postedRecipes,
-           likedRecipes: user.likedRecipes
+            postedRecipes: user.postedRecipes,
+            likedRecipes: user.likedRecipes
         }
 
-        return this.httpClient.put<User>(`${this.apiUrl}/users/${user._id}`, apiUser, {
-            withCredentials: true
-        }).pipe(
+        return this.httpClient.put<User>(`${this.apiUrl}/users/${user._id}`, apiUser,
+
+        ).pipe(
             tap(user => {
                 this._currentUser.set(user);
                 this._isLoggedIn.set(true);
-                localStorage.setItem('currentUser', JSON.stringify(user))
+                localStorage.setItem('accessToken', user.accessToken);
+                localStorage.setItem('currentUser', JSON.stringify({
+                    _id: user._id,
+                    email: user.email,
+                    postedRecipes: user.postedRecipes || [],
+                    likedRecipes: user.likedRecipes || [],
+                }));
 
             })
         )
@@ -89,12 +105,15 @@ export class AuthService {
 
     logout(): Observable<void> {
 
-        return this.httpClient.post<void>(`${this.apiUrl}/logout`, {}, { withCredentials: true }).pipe(
+        return this.httpClient.post<void>(`${this.apiUrl}/logout`, {}
+
+        ).pipe(
             tap(() => {
 
                 this._currentUser.set(null);
                 this._isLoggedIn.set(false);
                 localStorage.removeItem('currentUser');
+                localStorage.removeItem('accessToken');
 
             })
         )
