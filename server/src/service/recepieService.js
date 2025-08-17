@@ -1,19 +1,19 @@
-import Recepie from "../models/Recepie.js";
+import Recipe from "../models/Recipe.js";
 
 export default {
     getAll(filter = {}) {
-        return Recepie.find(filter);
+        return Recipe.find(filter);
     },
-    getOne(recepieId) {
-        return Recepie.findById(recepieId);
+    getOne(recipeId) {
+        return Recipe.findById(recipeId);
     },
-    create(recepieData, userId) {
-        return Recepie.create({ ...recepieData, _ownerId: userId });
+    create(recipeData, userId) {
+        return Recipe.create({ ...recipeData, _ownerId: userId });
     },
-    update(recepieId, recepieData) {
-        return Recepie.findByIdAndUpdate(recepieId, recepieData);
+    update(recipeId, recipeData) {
+        return Recipe.findByIdAndUpdate(recipeId, recipeData);
     },
-    delete(recepieId) {
-        return Recepie.findByIdAndDelete(recepieId);
+    delete(recipeId) {
+        return Recipe.findByIdAndDelete(recipeId);
     }
 }

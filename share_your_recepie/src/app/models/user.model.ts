@@ -1,6 +1,8 @@
 export interface User {
-    id: string;
-    username: string;
+    _id: string;
     email: string;
-    phone: string;
+    password: string;
+    postedRecipes: string[];
+    likedRecipes: string[];
+
 }

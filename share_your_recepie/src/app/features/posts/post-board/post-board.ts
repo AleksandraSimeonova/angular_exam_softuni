@@ -14,14 +14,14 @@ import { RecipeService } from '../../../core/services/posts.service';
 })
 export class PostBoard {
 
-  recepieId: string = '688de8bfdb859a6eae80ca94';
-  recepies$: Observable<Recipe[]>;
+  recipeId: string = '688de8bfdb859a6eae80ca94';
+  recipes$: Observable<Recipe[]>;
   
   constructor(
 
-    private recepieService: RecipeService) {
+    private recipeService: RecipeService) {
   
-    this.recepies$ = this.recepieService.getAll();
+    this.recipes$ = this.recipeService.getAll();
    
   }
 

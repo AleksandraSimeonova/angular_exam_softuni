@@ -1,6 +1,6 @@
 import { model, Schema, Types } from "mongoose";
 
-const RecepieSchema = new Schema({
+const RecipeSchema = new Schema({
     _id: {
         type: String,
         required: true,
@@ -33,6 +33,6 @@ const RecepieSchema = new Schema({
     }
 });
 
-const Recepie = model('Recepie', RecepieSchema);
+const Recipe = model('Recipe', RecipeSchema);
 
-export default Recepie;
+export default Recipe; /////Recepie;

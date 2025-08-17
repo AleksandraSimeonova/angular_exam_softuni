@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 
 export class RecipeService {
 
-     private apiUrl = 'http://localhost:3030/data/recepies'; //check url
+     private apiUrl = 'http://localhost:3030/data/recipes'; //check url
 
     constructor(private httpClient: HttpClient) {}
 

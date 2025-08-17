@@ -1,11 +1,11 @@
 import { Router } from "express";
 
 import userController from "./controllers/userController.js";
-import recepieController from "./controllers/recepieController.js";
+import recipeController from "./controllers/recipeController.js";
 
 const routes = Router();
 
 routes.use('/users', userController);
-routes.use('/data/recepies', recepieController);
+routes.use('/data/recipes', recipeController);
 
 export default routes;

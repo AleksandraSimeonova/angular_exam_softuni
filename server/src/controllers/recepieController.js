@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { isAuth } from "../middlewares/authMiddleware.js";
-import recepieService from "../service/recepieService.js";
+import recipeService from "../service/recipeService.js";
 
-const recepieController = Router();
+const recipeController = Router();
 
   ///   function buildFilter(query) {
   ///       const filterResult = Object.keys(query).reduce((filter, filterParam) => {
@@ -17,49 +17,49 @@ const recepieController = Router();
   ///   };
 
 // Get all
-recepieController.get('/', async (req, res) => {
+recipeController.get('/', async (req, res) => {
     // buildFilter({ where: '_ownerId="67ace2aed1eaa48b16b4b2eb"&email="ivo@abv.bg"', sortBy: 'createdAt="desc"' });
     ///const filter = buildFilter(req.query);
     
-    const recepies = await recepieService.getAll();
+    const recipes = await recipeService.getAll();
 
-    res.json(recepies);
+    res.json(recipes);
 });
 
 // Get one
-recepieController.get('/:recepieId', async (req, res) => {
-    const recepie = await recepieService.getOne(req.params.recepieId);
+recipesController.get('/:recipeId', async (req, res) => {
+    const recipe = await recipeService.getOne(req.params.recipeId);
 
-    res.json(recepie);
+    res.json(recipe);
 });
 
 // Create
-recepieController.post('/', isAuth, async (req, res) => {
-    const recepieData = req.body;
+recipeController.post('/', isAuth, async (req, res) => {
+    const recipeData = req.body;
     const userId = req.user.id;
 
-    const newRecepie = await recepieService.create(recepieData, userId);
+    const newRecipe = await recipeService.create(recipeData, userId);
 
-    res.json(newRecepie);
+    res.json(newRecipe);
 });
 
 // Update
-recepieController.put('/:recepieId', async (req, res) => {
-    const recepieId = req.params.recepieId;
-    const recepieData = req.body;
+recipeController.put('/:recipeId', async (req, res) => {
+    const recipeId = req.params.recipeId;
+    const recipeData = req.body;
 
-    const updatedRecepie = await recepieService.update(recepieId, recepieData);
+    const updatedRecipes = await recipeService.update(recipeId, recipeData);
 
-    res.json(updatedRecepie);
+    res.json(updatedRecipe);
 });
 
 // Delete
-recepieController.delete('/:recepieId', async (req, res) => {
-    const recepieId = req.params.recepieId;
+recipeController.delete('/:recipeId', async (req, res) => {
+    const recipeId = req.params.recipeId;
 
-    await recepieService.delete(recepieId);
+    await recipeService.delete(recipeId);
 
     res.json({ ok: true });
 });
 
-export default recepieController;
+export default recipeController;
