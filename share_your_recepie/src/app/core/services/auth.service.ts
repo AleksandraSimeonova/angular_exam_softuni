@@ -2,7 +2,7 @@ import { Injectable, signal } from "@angular/core";
 import { User } from "../../models";
 import { HttpClient } from "@angular/common/http";
 
-import { map, Observable, tap } from "rxjs";
+import { catchError, map, Observable, tap, throwError } from "rxjs";
 
 
 
@@ -112,6 +112,7 @@ export class AuthService {
     }
 
     logout(): Observable<void> {
+        const token = localStorage.getItem('accessToken');
 
         return this.httpClient.post<void>(`${this.apiUrl}/logout`, {}, {
             withCredentials: true
@@ -119,12 +120,16 @@ export class AuthService {
 
         ).pipe(
             tap(() => {
-
+                console.log('tap executed - clearing localStorage');
                 this._currentUser.set(null);
                 this._isLoggedIn.set(false);
                 localStorage.removeItem('currentUser');
                 localStorage.removeItem('accessToken');
 
+            }),
+            catchError(err => {
+                console.error('Logout error:', err);
+                return throwError(() => err);
             })
         )
 
