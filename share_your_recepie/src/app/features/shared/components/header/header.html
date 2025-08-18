@@ -3,12 +3,22 @@
   <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
     <a routerLink="/" class="w3-bar-item w3-button">ShareYourRecipe</a>
     <div class="w3-right w3-hide-small">
-      <a routerLink="/posts" class="w3-bar-item w3-button">Recipes</a>
-      <a routerLink="/posts" class="w3-bar-item w3-button">Add Recipe</a>
-      <a routerLink="/contact" class="w3-bar-item w3-button">Contact</a>
+      @if (!isLoggedIn()) {
+
       <a  routerLink="/login" class="w3-bar-item w3-button">Login</a>
       <a routerLink="/register" class="w3-bar-item w3-button">Register</a>
+
+      }
+      @else{
+      <a routerLink="/posts" class="w3-bar-item w3-button">Add Recipe</a>
       <a  (click)="logout()" class="w3-bar-item w3-button">Logout</a> 
+
+      }
+      
+      <a routerLink="/posts" class="w3-bar-item w3-button">Recipes</a>
+      <a routerLink="/contact" class="w3-bar-item w3-button">Contact</a>
+      
+      
     </div>
   </div>
 </div>
