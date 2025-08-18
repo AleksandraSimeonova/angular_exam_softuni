@@ -156,8 +156,7 @@ export class Register implements AfterViewInit {
         name,
         email,
         password,
-        rePassword
-     
+
         
       ).subscribe({
         next: () => {
@@ -168,7 +167,6 @@ export class Register implements AfterViewInit {
           this.markFormGroupTouched();
         }
       })
-
 
     }
   }
