@@ -46,6 +46,7 @@ export class AuthService {
                 localStorage.setItem('currentUser', JSON.stringify({
                     _id: user._id,
                     email: user.email,
+                    name: user.name,
                     postedRecipes: user.postedRecipes || [],
                     likedRecipes: user.likedRecipes || [],
                 }));
@@ -53,14 +54,13 @@ export class AuthService {
         )
     }
 
-    register(name: string, email: string, password: string, rePassword: string): Observable<User> {
+    register(name: string, email: string, password: string): Observable<User> {
 
         return this.httpClient.post<User>(`${this.apiUrl}/register`, {
+
             name,
             email,
-            password,
-            rePassword
-
+            password
 
         }, {
             withCredentials: true
@@ -72,6 +72,7 @@ export class AuthService {
                 localStorage.setItem('currentUser', JSON.stringify({
                     _id: user._id,
                     email: user.email,
+                    name: user.name,
                     postedRecipes: user.postedRecipes || [],
                     likedRecipes: user.likedRecipes || [],
                 }));
@@ -85,11 +86,12 @@ export class AuthService {
         const apiUser = <User>{
             _id: user._id,
             email: user.email,
+            name: user.name,
             postedRecipes: user.postedRecipes,
             likedRecipes: user.likedRecipes
         }
 
-        return this.httpClient.put<User>(`${this.apiUrl}/users/${user._id}`, apiUser, {
+        return this.httpClient.put<User>(`${this.apiUrl}/${user._id}`, apiUser, {
             withCredentials: true
         }
 
@@ -97,10 +99,10 @@ export class AuthService {
             tap(user => {
                 this._currentUser.set(user);
                 this._isLoggedIn.set(true);
-                localStorage.setItem('accessToken', user.accessToken);
                 localStorage.setItem('currentUser', JSON.stringify({
                     _id: user._id,
                     email: user.email,
+                    name: user.name,
                     postedRecipes: user.postedRecipes || [],
                     likedRecipes: user.likedRecipes || [],
                 }));
@@ -111,7 +113,9 @@ export class AuthService {
 
     logout(): Observable<void> {
 
-        return this.httpClient.post<void>(`${this.apiUrl}/logout`, {}
+        return this.httpClient.post<void>(`${this.apiUrl}/logout`, {}, {
+            withCredentials: true
+        }
 
         ).pipe(
             tap(() => {

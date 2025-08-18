@@ -5,6 +5,6 @@ export interface User {
     password: string;
     postedRecipes: string[];
     likedRecipes: string[];
-      accessToken: string;
+    accessToken: string;
 
 }
