@@ -6,9 +6,9 @@
       <input [class.input-error]="isUserNameValid" type="text" name="name" id="name" placeholder="Johny"
         formControlName="name" />
 
-      @if (isEmailValid) {
+      @if (isUserNameValid) {
       <p class="error">
-        {{ emailErrorMessage }}
+        {{ usernameErrorMessage }}
       </p>
       }
 

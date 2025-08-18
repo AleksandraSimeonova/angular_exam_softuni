@@ -24,8 +24,8 @@ export class Register implements AfterViewInit {
       email: ['', [Validators.required, Validators.pattern(/^(?=.{6,})[a-zA-Z][a-zA-Z0-9._-]*@gmail\.(com|bg)$/)]],
       passwords: this.formBuilder.group({
         password: ['', [Validators.required, Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9]+$/)]],
-        rePassword: ['', [Validators.required, this.passwordMatchValidator]]
-      }),
+        rePassword: ['', [Validators.required,]]
+      }, { validators: this.passwordMatchValidator }),
     })
   }
 
@@ -110,16 +110,13 @@ export class Register implements AfterViewInit {
 
   }
 
+
   get rePasswordErrorMessage(): string {
-    if (this.password?.errors?.['required']) {
+    if (this.rePassword?.errors?.['required']) {
       return 'Password is required!';
     }
 
-    if (this.password?.errors?.['minlength']) {
-      return 'Password must be at least 5 characters!';
-    }
-
-    if (this.password?.errors?.['passwordMismatch']) {
+    if (this.rePassword?.errors?.['passwordMismatch']) {
       return 'Passwords do not match!';
     }
 
@@ -127,21 +124,32 @@ export class Register implements AfterViewInit {
   }
 
 
-  private passwordMatchValidator(passwordsControl: AbstractControl): ValidationErrors | null {
-    const password = passwordsControl.get('password');
-    const rePassword = passwordsControl.get('rePassword');
+      passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+       const password = group.get('password');
+       const rePassword = group.get('rePassword');
+     
+       if (!password || !rePassword) return null;
+     
+       const mismatch = password.value !== rePassword.value;
+     
+       if (mismatch) {
+         rePassword.setErrors({ ...(rePassword.errors || {}), passwordMismatch: true });
+       } else {
+         // Премахваме passwordMismatch, ако вече няма грешка
+         if (rePassword.hasError('passwordMismatch')) {
+           const errors = { ...(rePassword.errors || {}) };
+           delete errors['passwordMismatch'];
+           if (Object.keys(errors).length === 0) {
+             rePassword.setErrors(null);
+           } else {
+             rePassword.setErrors(errors);
+           }
+         }
+       }
+     
+       return null;
+     }
 
-    if (password && rePassword && password.value !== rePassword.value) {
-      return { passwordMismatch: true }
-    }
-
-    return null
-  }
-
-
-  isFormValid(): boolean {
-    return true
-  }
 
   onSubmit(): void {
 
@@ -149,15 +157,15 @@ export class Register implements AfterViewInit {
     if (this.registerForm.valid) {
 
       const { name, email } = this.registerForm.value;
-      const { password, rePassword } = this.registerForm.value.passwords
+      const { password } = this.registerForm.value.passwords
 
       this.authService.register(
 
         name,
         email,
-        password,
+        password
 
-        
+
       ).subscribe({
         next: () => {
           this.router.navigate(['/home'])
