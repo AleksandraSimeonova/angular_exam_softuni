@@ -2,20 +2,38 @@
   <div class="login-box">
     <div class="form-section">
       <h2>Sign in</h2>
-      <form>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="input-group">
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="Your Email" required />
+          <input  [class.input-error]="isEmailValid" 
+                type="email"
+                id="email"
+                placeholder="john.doe@gmail.com" 
+                formControlName="email"> />
         </div>
+         @if (isEmailValid) {
+        <p class="error">
+            {{ emailErrorMessage }}
+        </p>
+        }
 
         <div class="input-group">
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Your Password" required />
+          <input  [class.input-error]="isPasswordValid"
+                type="password"
+                id="password"
+                placeholder="******" 
+                formControlName="password"> />
         </div>
 
+        @if (isPasswordValid) {
+        <p class="error">
+            {{ passwordErrorMessage }}
+        </p>
+        }
 
 
-        <button type="submit">Login</button>
+        <button [disabled]="loginForm.invalid">Login</button>
         <p class="register-link">Not a member? <a href="/register">Create an account</a></p>
       </form>
     </div>
