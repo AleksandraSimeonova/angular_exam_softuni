@@ -27,7 +27,19 @@ export default {
 
         return { user, token };
     },
+
     invalidateToken(token) {
         return InvalidToken.create({token});
+    },
+
+    async update(userId, data) {
+    const user = await User.findByIdAndUpdate(userId, data, { new: true });
+
+    if (!user) {
+        throw new Error('User not found');
     }
+
+    return user;
+    }
+
 }
