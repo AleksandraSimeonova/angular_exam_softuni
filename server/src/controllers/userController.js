@@ -11,7 +11,7 @@ userController.post('/register', async (req, res) => {
     const { user, token } = await userService.register(userData);
 
     res.json({
-        _id: user.id,
+        _id: user._id,
         name: user.name,
         accessToken: token,
         email: user.email,
@@ -26,13 +26,13 @@ userController.post('/login', async (req, res) => {
     const { user, token } = await userService.login(email, password)
 
     res.json({
-        _id: user.id,
+        _id: user._id,
         accessToken: token,
         email: user.email,
     });
 });
 
-userController.get('/logout', isAuth, async (req, res) => {
+userController.post('/logout', isAuth, async (req, res) => {
     const token = req.headers['x-authorization'];
 
     await userService.invalidateToken(token);
@@ -55,7 +55,7 @@ userController.put('/:id', isAuth, async (req, res) => {
         const updatedUser = await userService.update(userId, updateData);
 
         res.json({
-            _id: updatedUser.id,
+            _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
             postedRecipes: updatedUser.postedRecipes || [],

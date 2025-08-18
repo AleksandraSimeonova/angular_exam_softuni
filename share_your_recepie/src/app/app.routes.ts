@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { NotFound } from './features/shared/not-found/not-found';
+import { NotFound } from './features/shared/components/not-found/not-found';
+import { authGuard } from './core/guards/auth.guard';
 
 
 export const routes: Routes = [
@@ -23,7 +24,8 @@ export const routes: Routes = [
     },
     {
         path: 'profile',
-        loadComponent: () => import('./features/profile/profile').then(c => c.Profile)
+        loadComponent: () => import('./features/profile/profile').then(c => c.Profile),
+        canActivate: [authGuard]
     },
     {
         path: 'posts',
@@ -31,16 +33,12 @@ export const routes: Routes = [
     },
     {
         path: 'new-post',
-        loadComponent: () => import('./features/posts/new-post/new-post').then(c => c.NewPost)
+        loadComponent: () => import('./features/posts/new-post/new-post').then(c => c.NewPost),
+        canActivate: [authGuard]
     },
     {
         path: 'posts/:id',
         loadComponent: () => import('./features/posts/post-content/post-content').then(c => c.PostContent)
-    },
-    {
-        path: 'logout',
-        redirectTo: '/home',
-        pathMatch: 'full'
     },
     {
         path: '**',
