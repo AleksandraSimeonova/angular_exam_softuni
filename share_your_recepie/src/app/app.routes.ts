@@ -32,9 +32,9 @@ export const routes: Routes = [
         loadComponent: () => import('./features/posts/post-board/post-board').then(c => c.PostBoard)
     },
     {
-        path: 'new-post',
+        path: 'create',
         loadComponent: () => import('./features/posts/new-post/new-post').then(c => c.NewPost),
-        canActivate: [authGuard]
+        
     },
     {
         path: 'posts/:id',

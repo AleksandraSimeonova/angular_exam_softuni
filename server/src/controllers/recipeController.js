@@ -23,11 +23,19 @@ recipeController.get('/:recipeId', async (req, res) => {
 // Create
 recipeController.post('/', isAuth, async (req, res) => {
     const recipeData = req.body;
-    const userId = req.user.id;
+    const userId = req.user._id;
+    console.log('Creating recipe for userId:', userId);
 
-    const newRecipe = await recipeService.create(recipeData, userId);
+     console.log('Received data:', recipeData);
+    console.log('User ID:', userId);    
 
-    res.json(newRecipe);
+    try {
+        const newRecipe = await recipeService.create(recipeData, userId);
+        res.json(newRecipe);
+    } catch (err) {
+        console.error('Error creating recipe:', err);
+        res.status(400).json({ error: err.message });
+    }
 });
 
 // Update

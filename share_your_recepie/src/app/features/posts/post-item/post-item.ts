@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Component, inject, Input } from '@angular/core';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Recipe, User } from '../../../models';
+import { PostContent } from '../post-content/post-content';
+import { AuthService } from '../../../core/services';
 
 @Component({
   selector: 'app-post-item',
@@ -13,9 +15,15 @@ export class PostItem {
 
   @Input() recipe!: Recipe;
   @Input() users: User[] = [];
+  private authService = inject(AuthService)
+  private route = inject(Router)
 
-  getUsernameById(id: string): string {
-    const user = this.users.find(u => u._id === id);
-    return user ? user.name : 'no name';
+
+   get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  get currentUserId(): string | null {
+    return this.authService.getCurrentUserId(); ///add it 
   }
 }

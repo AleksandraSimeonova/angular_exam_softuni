@@ -1,10 +1,7 @@
 import { model, Schema, Types } from "mongoose";
 
 const RecipeSchema = new Schema({
-    _id: {
-        type: String,
-        required: true,
-    },
+  
     title: {
         type: String,
         required: true,
@@ -19,7 +16,9 @@ const RecipeSchema = new Schema({
     },
     likes: {
         type: Number,
-        min: 0
+        min: 0,
+
+    default: 0
     },
     imageUrl: {
         type: String
@@ -29,7 +28,8 @@ const RecipeSchema = new Schema({
         ref: 'User',
     },
     createdAt:{
-        type: Date
+        type: Date,
+         default: Date.now
     }
 });
 

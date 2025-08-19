@@ -1,1 +1,11 @@
-<p>post-content works!</p>
+
+<section *ngIf="recipe$ | async as recipe; else loading">
+  <h2>{{ recipe.title }}</h2>
+  <img [src]="recipe.imageUrl" alt="{{ recipe.title }}">
+  <p><strong>Съставки:</strong> {{ recipe.ingredients }}</p>
+  <p><strong>Инструкции:</strong> {{ recipe.instructions }}</p>
+</section>
+
+<ng-template #loading>
+  <p>Зареждане...</p>
+</ng-template>

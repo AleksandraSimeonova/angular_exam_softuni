@@ -1,7 +1,7 @@
 <div class="recipe-container">
   <div class="recipe-wrapper">
     <div class="recipe-title">
-      <a routerLink="/recipes/{{recipe._id}}" class="normal">
+      <a routerLink="/posts/{{recipe._id}}" class="normal">
         <h2>{{recipe.title}}</h2>
       </a>
     </div>
@@ -12,7 +12,7 @@
         <p>Likes: <span>{{recipe.likes}}</span></p>
 
         <div class="author-info">
-          <p>Author name: <span>{{getUsernameById(recipe._ownerId) }}</span></p>
+          <p>Author name: <span>{{recipe._id}}</span></p>
         </div>
 
         <div class="ingredients">
@@ -29,6 +29,20 @@
       <div class="recipe-image" *ngIf="recipe.imageUrl">
         <img [src]="recipe.imageUrl" alt="{{recipe.title}}" />
       </div>
+
+      @if (isLoggedIn && recipe._id == currentUserId) {
+
+      <button >Edit</button>
+
+      <button >Delete</button>
+
+      }
+
+      @if (isLoggedIn && recipe._id !== currentUserId) {
+
+      <button >Like</button>
+
+      }
     </div>
   </div>
 </div>

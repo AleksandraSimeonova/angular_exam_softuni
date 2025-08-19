@@ -1,10 +1,10 @@
-<div class="container"> 
+<div class="container">
   <main>
+
     <div class="theme-title">
-      <div *ngFor="let recipe of recipes$ | async; trackBy: trackById">
-        <app-post-item [recipe]="recipe" [users]="users"></app-post-item>
-      </div>
-    </div>
+            @for (recipe of recipes$ | async; track recipe._id) {
+            <app-post-item [recipe]="recipe"></app-post-item>
+            }
+        </div>
   </main>
 </div>
-<p> Work</p>

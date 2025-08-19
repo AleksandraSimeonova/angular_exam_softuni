@@ -15,10 +15,52 @@ export class RecipeService {
         return this.httpClient.get<Recipe[]>(this.apiUrl);
     }
 
-    getAllUsers(): Observable<User[]> {
-        return this.httpClient.get<User[]>('http://localhost:3030/users');
+
+    getOne(id: string): Observable<Recipe> {
+        return this.httpClient.get<Recipe>(`${this.apiUrl}/${id}`);
     }
+
+
+   create(data: any): Observable<Recipe> {
+    return this.httpClient.post<Recipe>(this.apiUrl, data, {
+      headers: this.authHeader()
+    });
+  }
+
+  private authHeader(): { [header: string]: string } {
+    const token = localStorage.getItem('accessToken');
+    return token ? { 'X-Authorization': token } : {};
+  }
+
+
 }
+
+
+   ///     return this.httpClient.post<Recipe>(`${this.apiUrl}`, data, {
+   ///         headers: this.authHeader()
+   ///     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///    getById(id: string): Observable<Recipe> {
 ///        return this.httpClient.get<Recipe>(`${this.apiUrl}/recipes/${id}`);
