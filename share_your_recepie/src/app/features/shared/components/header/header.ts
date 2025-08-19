@@ -23,10 +23,5 @@ export class Header {
     error: (err) => console.error('Logout error', err)
   });
 }
-   ///  logout(): void {
-   ///    console.log('Logout activated')
-   ///    this.authService.logout();
-   ///    this.router.navigate(['/home']);
-   ///  }
-
+ 
 }

@@ -1,18 +1,22 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Recipe, Theme } from "../../models";
+import { Recipe, Theme, User } from "../../models";
 import { Observable } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 
 export class RecipeService {
 
-     private apiUrl = 'http://localhost:3030/data/recipes'; //check url
+    private apiUrl = 'http://localhost:3030/data/recipes'; //check url
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient) { }
 
     getAll(): Observable<Recipe[]> {
         return this.httpClient.get<Recipe[]>(this.apiUrl);
+    }
+
+    getAllUsers(): Observable<User[]> {
+        return this.httpClient.get<User[]>('http://localhost:3030/users');
     }
 }
 
@@ -38,8 +42,8 @@ export class RecipeService {
 ///        });
 ///    }
 
- ///  private authHeader(): HttpHeaders {
- ///      const token = localStorage.getItem('token');
- ///      return new HttpHeaders().set('Authorization', `Bearer ${token}`);
- ///  }
+///  private authHeader(): HttpHeaders {
+///      const token = localStorage.getItem('token');
+///      return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+///  }
 

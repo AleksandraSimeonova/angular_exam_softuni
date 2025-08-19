@@ -2,7 +2,7 @@
   <main>
     <div class="theme-title">
       <div *ngFor="let recipe of recipes$ | async; trackBy: trackById">
-        <app-post-item [recipe]="recipe"></app-post-item>
+        <app-post-item [recipe]="recipe" [users]="users"></app-post-item>
       </div>
     </div>
   </main>

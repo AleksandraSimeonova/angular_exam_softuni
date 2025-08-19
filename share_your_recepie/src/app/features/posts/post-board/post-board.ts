@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { PostItem } from '../post-item/post-item';
 import { CommonModule } from '@angular/common';
-import { Recipe } from '../../../models';
+import { Recipe, User } from '../../../models';
 import { Observable } from 'rxjs';
 import { RecipeService } from '../../../core/services/posts.service';
 
@@ -14,20 +14,32 @@ import { RecipeService } from '../../../core/services/posts.service';
 })
 export class PostBoard {
 
-  recipeId: string = '688de8bfdb859a6eae80ca94';
-  recipes$: Observable<Recipe[]>;
-  
-  constructor(
 
-    private recipeService: RecipeService) {
-  
+  users: User[] = [];
+
+  recipeId: string = '';
+  recipes$: Observable<Recipe[]>;
+
+  constructor(private recipeService: RecipeService) {
+
     this.recipes$ = this.recipeService.getAll();
-   
+    console.log(this.recipes$);
+
+    this.recipeService.getAllUsers().subscribe(users => {
+      this.users = users;
+
+    })
+  }
+
+
+  getUsernameById(id: string): string {
+    const user = this.users.find(u => u._id === id);
+    return user ? user.name : '';
   }
 
   trackById(index: number, recipe: Recipe): string {
-  return recipe._id;
-}
+    return recipe._id;
+  }
 
 
 }
