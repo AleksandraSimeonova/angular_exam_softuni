@@ -18,7 +18,7 @@ export class PostBoard {
   private authService = inject(AuthService);
   readonly isLoggedIn = this.authService.isLoggedIn;
   private router = inject(RouterModule)
-    private route = inject(Router)
+  private route = inject(Router)
 
   recipes$: Observable<Recipe[]>;
 
@@ -26,9 +26,14 @@ export class PostBoard {
 
     this.recipes$ = this.recipeService.getAll()
     console.log(this.recipes$);
+    this.recipes$.subscribe(data => {
+      console.log('Рецепти получени от API:', data);
+    });
 
 
   }
+
+
 
 
 }
