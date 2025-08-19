@@ -1,27 +1,39 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Recipe, Theme, User } from "../../models";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 
 export class RecipeService {
 
-    private apiUrl = 'http://localhost:3030/data/recipes'; //check url
+  private apiUrl = 'http://localhost:3030/data/recipes'; //check url
 
-    constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-    getAll(): Observable<Recipe[]> {
-        return this.httpClient.get<Recipe[]>(this.apiUrl);
-    }
+  getAll(): Observable<Recipe[]> {
+    return this.httpClient.get<Recipe[]>(this.apiUrl);
+
+  }
+
+///  getAll(): Observable<Recipe[]> {
+///    return this.httpClient.get<any[]>(this.apiUrl).pipe(
+///      map(recipes =>
+///        recipes.map(r => ({
+///          ...r,
+///          id: r._id   
+///        }))
+///      )
+///    );
+///  }
+
+  getOne(id: string): Observable<Recipe> {
+    return this.httpClient.get<Recipe>(`${this.apiUrl}/${id}`);
+
+  }
 
 
-    getOne(id: string): Observable<Recipe> {
-        return this.httpClient.get<Recipe>(`${this.apiUrl}/${id}`);
-    }
-
-
-   create(data: any): Observable<Recipe> {
+  create(data: any): Observable<Recipe> {
     return this.httpClient.post<Recipe>(this.apiUrl, data, {
       headers: this.authHeader()
     });
@@ -36,9 +48,9 @@ export class RecipeService {
 }
 
 
-   ///     return this.httpClient.post<Recipe>(`${this.apiUrl}`, data, {
-   ///         headers: this.authHeader()
-   ///     });
+///     return this.httpClient.post<Recipe>(`${this.apiUrl}`, data, {
+///         headers: this.authHeader()
+///     });
 
 
 
