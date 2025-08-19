@@ -1,5 +1,5 @@
 
-<section *ngIf="recipe$ | async as recipe; else loading">
+<section *ngIf="recipe as recipe; else loading">
   <h2>{{ recipe.title }}</h2>
   <img [src]="recipe.imageUrl" alt="{{ recipe.title }}">
   <p><strong>Съставки:</strong> {{ recipe.ingredients }}</p>
