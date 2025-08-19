@@ -29,25 +29,24 @@ export class PostContent implements OnInit {
 
   ngOnInit(): void {
 
-
-    ///// if (recipeId) {
-    /////   this.recipeService.getOne(recipeId).subscribe({
-    /////     next: (data) => this.recipe = data,
-    /////     error: (err) => console.error('Error loading recipe:', err)
-    /////   });
-    ///// }
-
     const recipeId = this.route.snapshot.paramMap.get('id');
+     console.log('Recipe ID от URL:', recipeId);
 
     if (recipeId) {
-      this.recipe$ = this.recipeService.getOne(recipeId);
-    } else {
-      console.warn('Няма ID в URL');
+      this.recipeService.getOne(recipeId).subscribe({
+        next: (data) => {
+          console.log('Получена рецепта:', data);
+          this.recipe = data;
+        },
+        error: (err) => {
+          console.error('Грешка при зареждане на рецептата:', err);
+        }
+      });
     }
-    console.log(this.recipe$, recipeId);
+
+
+
   }
-
-
 
 
   isOwner: any;
