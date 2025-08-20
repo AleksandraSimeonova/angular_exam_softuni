@@ -31,7 +31,7 @@ const userSchema = new Schema({
     }],
 
     likedRecipes: [{
-        type: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId, ///type: Types.ObjectId,
         ref: "Recipe"
     }]
 

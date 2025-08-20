@@ -29,10 +29,6 @@ export class RecipeService {
     });
   }
 
-  private authHeader(): { [header: string]: string } {
-    const token = localStorage.getItem('accessToken');
-    return token ? { 'X-Authorization': token } : {};
-  }
 
 
   update(id: string, data: any): Observable<Recipe> {
@@ -47,25 +43,22 @@ export class RecipeService {
     });
   }
 
+  likeRecipe(recipeId: string): Observable<Recipe> {
+    return this.httpClient.patch<Recipe>(
+      `${this.apiUrl}/${recipeId}/like`,
+      {},
+      {
+        headers: this.authHeader()
+      }
+    );
+  }
+
+  private authHeader(): { [header: string]: string } {
+    const token = localStorage.getItem('accessToken');
+    return token ? { 'X-Authorization': token } : {};
+  }
+
 }
-
-
-///     return this.httpClient.post<Recipe>(`${this.apiUrl}`, data, {
-///         headers: this.authHeader()
-///     });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -80,26 +73,3 @@ export class RecipeService {
 ///        return this.httpClient.get<Recipe>(`${this.apiUrl}/recipes/${id}`);
 ///    }
 ///
-///    create(data: any): Observable<Recipe> {
-///        return this.http.post<Recipe>(`${this.apiUrl}/recipes`, data, {
-///            headers: this.authHeader()
-///        });
-///    }
-///
-///    update(id: string, data: any): Observable<Recipe> {
-///        return this.http.put<Recipe>(`${this.apiUrl}/recipes/${id}`, data, {
-///            headers: this.authHeader()
-///        });
-///    }
-///
-///    delete(id: string): Observable<void> {
-///        return this.http.delete<void>(`${this.apiUrl}/recipes/${id}`, {
-///            headers: this.authHeader()
-///        });
-///    }
-
-///  private authHeader(): HttpHeaders {
-///      const token = localStorage.getItem('token');
-///      return new HttpHeaders().set('Authorization', `Bearer ${token}`);
-///  }
-
