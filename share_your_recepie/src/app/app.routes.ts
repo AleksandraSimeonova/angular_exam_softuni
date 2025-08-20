@@ -34,6 +34,7 @@ export const routes: Routes = [
     {
         path: 'create',
         loadComponent: () => import('./features/posts/new-post/new-post').then(c => c.NewPost),
+        canActivate: [authGuard]
         
     },
     {
@@ -42,7 +43,8 @@ export const routes: Routes = [
     },
     {
         path: 'posts/:id/edit',
-        loadComponent: () => import('./features/posts/edit-post/edit-post').then(c => c.EditPost)
+        loadComponent: () => import('./features/posts/edit-post/edit-post').then(c => c.EditPost),
+        canActivate: [authGuard]
     },
         {
         path: 'postsowner',
