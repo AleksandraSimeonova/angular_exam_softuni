@@ -1,1 +1,38 @@
-<p>my-posts works!</p>
+<div class="recipe-container" *ngFor="let recipe of recipes">
+  <div class="recipe-wrapper">
+    <div class="recipe-title">
+      <a [routerLink]="['/posts', recipe._id]" class="normal">
+        <h2>{{ recipe.title }}</h2>
+      </a>
+    </div>
+
+    <div class="columns">
+      <div class="recipe-details">
+        <p>Date: <time>{{ recipe.createdAt | date:'short' }}</time></p>
+        <p>Likes: <span>{{ recipe.likes }}</span></p>
+
+        <div class="author-info">
+          <p>Author ID: <span>{{ recipe.ownerId }}</span></p>
+        </div>
+
+        <div class="ingredients">
+          <p><strong>Ingredients:</strong></p>
+          <p>{{ recipe.ingredients }}</p>
+        </div>
+
+        <div class="instructions">
+          <p><strong>Instructions:</strong></p>
+          <p>{{ recipe.instructions }}</p>
+        </div>
+      </div>
+
+      <div class="recipe-image" *ngIf="recipe.imageUrl">
+        <img [src]="recipe.imageUrl" alt="{{ recipe.title }}" />
+      </div>
+
+
+
+      
+    </div>
+  </div>
+</div>

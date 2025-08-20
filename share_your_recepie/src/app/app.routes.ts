@@ -44,6 +44,10 @@ export const routes: Routes = [
         path: 'posts/:id/edit',
         loadComponent: () => import('./features/posts/edit-post/edit-post').then(c => c.EditPost)
     },
+        {
+        path: 'postsowner',
+        loadComponent: () => import('./features/posts/my-posts/my-posts').then(c => c.MyPosts)
+    },
     {
         path: '**',
         component: NotFound
