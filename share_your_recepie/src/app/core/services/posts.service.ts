@@ -16,17 +16,6 @@ export class RecipeService {
 
   }
 
-///  getAll(): Observable<Recipe[]> {
-///    return this.httpClient.get<any[]>(this.apiUrl).pipe(
-///      map(recipes =>
-///        recipes.map(r => ({
-///          ...r,
-///          id: r._id   
-///        }))
-///      )
-///    );
-///  }
-
   getOne(id: string): Observable<Recipe> {
     return this.httpClient.get<Recipe>(`${this.apiUrl}/${id}`);
 
@@ -36,6 +25,7 @@ export class RecipeService {
   create(data: any): Observable<Recipe> {
     return this.httpClient.post<Recipe>(this.apiUrl, data, {
       headers: this.authHeader()
+
     });
   }
 
@@ -44,6 +34,18 @@ export class RecipeService {
     return token ? { 'X-Authorization': token } : {};
   }
 
+
+  update(id: string, data: any): Observable<Recipe> {
+    return this.httpClient.put<Recipe>(`${this.apiUrl}/${id}`, data, {
+      headers: this.authHeader()
+    });
+  }
+
+  delete(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`, {
+      headers: this.authHeader()
+    });
+  }
 
 }
 

@@ -8,7 +8,7 @@ export default {
         return Recipe.findById(recipeId);
     },
     create(recipeData, userId) {
-        return Recipe.create({ ...recipeData, _ownerId: userId });
+        return Recipe.create({ ...recipeData, ownerId: userId });
     },
     update(recipeId, recipeData) {
         return Recipe.findByIdAndUpdate(recipeId, recipeData);

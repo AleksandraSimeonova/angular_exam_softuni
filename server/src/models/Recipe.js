@@ -23,7 +23,7 @@ const RecipeSchema = new Schema({
     imageUrl: {
         type: String
     },
-    _ownerId: {
+    ownerId: {
         type: Types.ObjectId,
         ref: 'User',
     },

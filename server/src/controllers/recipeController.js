@@ -24,10 +24,6 @@ recipeController.get('/:recipeId', async (req, res) => {
 recipeController.post('/', isAuth, async (req, res) => {
     const recipeData = req.body;
     const userId = req.user._id;
-    console.log('Creating recipe for userId:', userId);
-
-     console.log('Received data:', recipeData);
-    console.log('User ID:', userId);    
 
     try {
         const newRecipe = await recipeService.create(recipeData, userId);

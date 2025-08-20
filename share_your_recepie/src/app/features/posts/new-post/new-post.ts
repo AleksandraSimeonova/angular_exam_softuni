@@ -17,6 +17,11 @@ export class NewPost implements AfterViewInit {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
 
+  protected authService = inject(AuthService);
+
+  protected ownerId: string | null = this.authService.getCurrentUserId();
+
+
   recipeForm: FormGroup
 
   constructor() {
@@ -25,12 +30,17 @@ export class NewPost implements AfterViewInit {
       title: ['', Validators.required],
       ingredients: ['', Validators.required],
       instructions: ['', Validators.required],
-      imageUrl: ['', [Validators.required, Validators.pattern(/https?:\/\/.+\.(jpg|jpeg|png|webp)/)]]
+      imageUrl: ['', [Validators.required, Validators.pattern(/https?:\/\/.+\.(jpg|jpeg|png|webp)/)]],
+ 
     });
+
+
   }
 
   ngAfterViewInit(): void {
     console.log(this.recipeForm);
+    console.log(this.ownerId);
+    
 
   }
 
@@ -50,6 +60,7 @@ export class NewPost implements AfterViewInit {
   get imageUrl(): AbstractControl<any, any> | null {
     return this.recipeForm.get('imageUrl')
   }
+
 
 
   get titleValid(): boolean {
@@ -109,11 +120,14 @@ export class NewPost implements AfterViewInit {
           title,
           ingredients,
           instructions,
-          imageUrl
+          imageUrl,
+      
         }
 
       ).subscribe({
         next: () => {
+          
+          
           this.router.navigate(['/home'])
         },
         error: (err: Error) => {

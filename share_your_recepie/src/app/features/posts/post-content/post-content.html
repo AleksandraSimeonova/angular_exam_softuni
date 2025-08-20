@@ -1,9 +1,13 @@
-
 <section *ngIf="recipe as recipe; else loading">
   <h2>{{ recipe.title }}</h2>
   <img [src]="recipe.imageUrl" alt="{{ recipe.title }}">
   <p><strong>Съставки:</strong> {{ recipe.ingredients }}</p>
   <p><strong>Инструкции:</strong> {{ recipe.instructions }}</p>
+
+  @if(isLoggedIn && currentUserId == recipe.ownerId){
+  <button routerLink="/posts/{{recipe._id}}/edit" >Edit</button>
+  <button  (click)="onDelete()" >Delete</button>
+  }
 </section>
 
 <ng-template #loading>

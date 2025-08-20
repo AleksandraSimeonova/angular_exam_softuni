@@ -22,6 +22,14 @@ export class PostContent implements OnInit {
 
   protected authService = inject(AuthService);
 
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  get currentUserId(): string | null {
+    return this.authService.getCurrentUserId(); ///add it 
+  }
+
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute
@@ -30,7 +38,7 @@ export class PostContent implements OnInit {
   ngOnInit(): void {
 
     const recipeId = this.route.snapshot.paramMap.get('id');
-     console.log('Recipe ID от URL:', recipeId);
+    console.log('Recipe ID от URL:', recipeId);
 
     if (recipeId) {
       this.recipeService.getOne(recipeId).subscribe({
@@ -50,9 +58,17 @@ export class PostContent implements OnInit {
 
 
   isOwner: any;
-  onDelete() {
-    throw new Error('Method not implemented.');
+
+  onDelete(): void {
+  if (!this.recipe) return;
+
+  if (confirm('Are you sure you want to delete this recipe?')) {
+    this.recipeService.delete(this.recipe._id).subscribe({
+      next: () => this.route1.navigate(['/home']),
+      error: (err) => console.error('Error deleting recipe:', err)
+    });
   }
+}
   onEdit() {
     throw new Error('Method not implemented.');
   }

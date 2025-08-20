@@ -1,0 +1,37 @@
+<h2>Редактиране на рецепта</h2>
+
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Заглавие:</label>
+    <input type="text" formControlName="title" />
+    <span *ngIf="title?.invalid && (title?.dirty || title?.touched)">
+      {{ titleErrorMessage }}
+    </span>
+  </div>
+
+  <div>
+    <label>Съставки:</label>
+    <textarea formControlName="ingredients"></textarea>
+    <span *ngIf="ingredients?.invalid && (ingredients?.dirty || ingredients?.touched)">
+      {{ ingredientsErrorMessage }}
+    </span>
+  </div>
+
+  <div>
+    <label>Инструкции:</label>
+    <textarea formControlName="instructions"></textarea>
+    <span *ngIf="instructions?.invalid && (instructions?.dirty || instructions?.touched)">
+      {{ instructionsErrorMessage }}
+    </span>
+  </div>
+
+  <div>
+    <label>Изображение (URL):</label>
+    <input type="text" formControlName="imageUrl" />
+    <span *ngIf="imageUrl?.invalid && (imageUrl?.dirty || imageUrl?.touched)">
+      Въведи валиден URL към изображение (.jpg, .jpeg, .png, .webp)
+    </span>
+  </div>
+
+  <button type="submit" [disabled]="recipeForm.invalid">Запази промените</button>
+</form>

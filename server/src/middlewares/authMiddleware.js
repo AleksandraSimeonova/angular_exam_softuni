@@ -18,7 +18,7 @@ export const auth = async (req, res, next) => {
         const decodedToken = jsonwebtoken.verify(token, JWT_SECRET);
 
         req.user = decodedToken;
-        console.log(req.user);
+        console.log(req.user, 'req.user');
         
     } catch (err) {
         return res.json({ error: 'Invalid token!' });
@@ -28,6 +28,8 @@ export const auth = async (req, res, next) => {
 };
 
 export const isAuth = (req, res, next) => {
+
+    
     if (!req.user) {
         return res.end();
     }

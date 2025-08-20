@@ -41,6 +41,10 @@ export const routes: Routes = [
         loadComponent: () => import('./features/posts/post-content/post-content').then(c => c.PostContent)
     },
     {
+        path: 'posts/:id/edit',
+        loadComponent: () => import('./features/posts/edit-post/edit-post').then(c => c.EditPost)
+    },
+    {
         path: '**',
         component: NotFound
     }

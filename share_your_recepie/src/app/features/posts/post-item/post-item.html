@@ -30,13 +30,6 @@
         <img [src]="recipe.imageUrl" alt="{{recipe.title}}" />
       </div>
 
-      @if (isLoggedIn && recipe._id == currentUserId) {
-
-      <button >Edit</button>
-
-      <button >Delete</button>
-
-      }
 
       @if (isLoggedIn && recipe._id !== currentUserId) {
 

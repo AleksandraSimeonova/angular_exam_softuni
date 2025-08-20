@@ -7,7 +7,7 @@ id: any;
   ingredients: string;
   instructions: string;
   imageUrl?: string;
-  _ownerId: string;
+  ownerId: string;
   likes: number;
   createdAt: Date;
 }
